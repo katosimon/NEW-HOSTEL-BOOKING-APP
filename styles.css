@@ -602,3 +602,39 @@ body {
 .dropdown-menu button:hover {
   background-color: #f3f4f6;
 }
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.details-btn, .book-btn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9em;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.details-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.details-btn:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.book-btn {
+  background-color: #007bff; /* A nice blue */
+  color: white;
+  border: 1px solid #0056b3;
+}
+
+.book-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
