@@ -42,7 +42,14 @@ const Navbar = () => {
 
         <div className="nav-links">
           <Link to="/hostels">Hostels</Link>
+           <Link to="/account" className="ml-10">Account</Link>
 
+               {user ? (
+            <div className="user-dropdown">
+              <button onClick={toggleDropdown} className="user-btn">
+                {user.name || 'Account'} ▼
+              </button>
+              
           {user ? (
             <div className="user-dropdown">
               <button onClick={toggleDropdown} className="user-btn">
@@ -72,3 +79,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
