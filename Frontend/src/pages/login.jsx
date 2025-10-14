@@ -40,7 +40,7 @@ const Login = () => {
 
   return (
     <div className="container-fluid vh-100 d-flex justify-content-center align-items-center bg-light">
-      <div className="card shadow-lg" style={{ width: '400px' }}>
+      <div className="card shadow-lg" style={{ width: '1110px' }}>
         <div className="card-content text-center p-5">
           <h1 className="display-5 fw-bold text-primary mb-3">HostelHub</h1>
           
@@ -119,3 +119,4 @@ const Login = () => {
 };
 
 export default Login;
+
