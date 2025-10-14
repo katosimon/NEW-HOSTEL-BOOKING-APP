@@ -36,7 +36,7 @@ const Register = () => {
 
   return (
     <div className="container flex-center">
-      <div className="card" style={{ width: '400px' }}>
+      <div className="card" style={{ width: '1111px' }}>
         <div className="card-content text-center">
           <h2>Register</h2>
           <p className="card-text">Already have an account? <Link to="/login">Login</Link></p>
@@ -94,3 +94,4 @@ const Register = () => {
 };
 
 export default Register;
+
