@@ -69,7 +69,7 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login">Login</Link>
-              <Link to="/register" className="btn btn-primary">Register</Link>
+             
             </>
           )}
         </div>
@@ -79,4 +79,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
