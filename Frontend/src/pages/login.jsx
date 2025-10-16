@@ -1,5 +1,7 @@
+// Import React and required hooks
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+// Import authentication context (for handling login)
 import { useAuth } from '../context/AuthContextContext';
 
 const Login = () => {
@@ -119,4 +121,5 @@ const Login = () => {
 };
 
 export default Login;
+
 
