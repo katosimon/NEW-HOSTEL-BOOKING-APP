@@ -23,6 +23,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     setShowDropdown(false);
+    navigate('/'); 
   };
 
   return (
@@ -33,7 +34,7 @@ const Navbar = () => {
         <form onSubmit={handleSearch} className="search-bar">
           <input
             type="text"
-            placeholder="Search hostels..."
+            placeholder="Search hostels by city or name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -42,18 +43,12 @@ const Navbar = () => {
 
         <div className="nav-links">
           <Link to="/hostels">Hostels</Link>
-           <Link to="/account" className="ml-10">Account</Link>
-
-               {user ? (
-            <div className="user-dropdown">
-              <button onClick={toggleDropdown} className="user-btn">
-                {user.name || 'Account'} ▼
-              </button>
-              
+          <Link to="/contact">Contact Us</Link>
+          
           {user ? (
             <div className="user-dropdown">
               <button onClick={toggleDropdown} className="user-btn">
-                {user.name || 'Account'} ▼
+                {user.name || 'Account'} <span className="dropdown-arrow">▼</span>
               </button>
 
               {showDropdown && (
@@ -68,8 +63,8 @@ const Navbar = () => {
             </div>
           ) : (
             <>
+              <Link to="/account">Account</Link>
               <Link to="/login">Login</Link>
-             
             </>
           )}
         </div>
@@ -78,6 +73,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
-
-
+export default Navbar;s
