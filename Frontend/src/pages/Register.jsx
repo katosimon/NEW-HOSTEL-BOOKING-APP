@@ -1,24 +1,37 @@
+// Import React and required hooks
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+// Import authentication context to handle user registration
 import { useAuth } from '../context/AuthContextContext';
 
 const Register = () => {
+  // State to store user input data for the registration form
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     phone: ''
   });
+
+  // State for displaying error messages (e.g., registration failure)
   const [error, setError] = useState('');
+
+  // State for showing loading indicator during registration process
   const [loading, setLoading] = useState(false);
+
+  // Extract the register function from authentication context
   const { register } = useAuth();
+
+  // useNavigate hook is used to redirect users after successful registration
   const navigate = useNavigate();
 
+  // Handle form submission when user clicks the Register button
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+    e.preventDefault();// Prevent page reload
+    setLoading(true);// Start loading spinner or disable button
+    setError('');// Clear any previous error message
 
+    // Call the register function from context and wait for the result
     const result = await register(
       formData.name,
       formData.email,
@@ -26,15 +39,20 @@ const Register = () => {
       formData.phone
     );
     
+    // If registration is successful, redirect user to homepage
     if (result.success) {
       navigate('/');
     } else {
+      // Otherwise, show error message returned from backend or context
       setError(result.message);
     }
+
+    // Stop the loading indicator once done
     setLoading(false);
   };
 
   return (
+    // Main container centered using custom flex-center class
     <div className="container flex-center">
       <div className="card" style={{ width: '1111px' }}>
         <div className="card-content text-center">
@@ -94,4 +112,5 @@ const Register = () => {
 };
 
 export default Register;
+
 
