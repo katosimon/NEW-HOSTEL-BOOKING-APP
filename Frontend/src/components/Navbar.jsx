@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContextContext';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation(); 
   const [search, setSearch] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -31,15 +32,18 @@ const Navbar = () => {
       <div className="nav-content">
         <Link to="/" className="logo">HostelHub</Link>
 
-        <form onSubmit={handleSearch} className="search-bar">
-          <input
-            type="text"
-            placeholder="Search hostels by city or name..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
+       
+        {location.pathname === '/hostels' && (
+          <form onSubmit={handleSearch} className="search-bar">
+            <input
+              type="text"
+              placeholder="Search hostels by city or name..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button type="submit">Search</button>
+          </form>
+        )}
 
         <div className="nav-links">
           <Link to="/hostels">Hostels</Link>
@@ -73,4 +77,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;s
+export default Navbar;
