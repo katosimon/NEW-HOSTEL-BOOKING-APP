@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Hostels from './pages/Hostels';
 import HostelDetails from './pages/Hostelsdetails';
 import Booking from './pages/Booking';
+import PageNotFound from './pages/PageNotFound';
 import Account from './pages/Account';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/hostel/:id" element={<HostelDetails />} />
           <Route path="/booking/:id" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
           <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+          <Route path="/*" element={<PageNotFound />} />
           <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         </Routes>
       </Router>
