@@ -30,7 +30,6 @@ function App() {
           <Route path="/booking/:id" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
           <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
           <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </AuthProvider>
