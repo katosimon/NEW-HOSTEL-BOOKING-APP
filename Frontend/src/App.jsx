@@ -7,11 +7,12 @@ import Register from './pages/Register';
 import Hostels from './pages/Hostels';
 import HostelDetails from './pages/Hostelsdetails';
 import Booking from './pages/Booking';
-import PageNotFound from './pages/PageNotFound';
 import Account from './pages/Account';
 import AdminDashboard from './pages/AdminDashboard';
+import ContactUs from './pages/Contact us';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
+import HomePage from './pages/intro';
 import './styles.css';
 
 function App() {
@@ -20,15 +21,16 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Hostels />} />
           <Route path="/hostels" element={<Hostels />} />
           <Route path="/hostel/:id" element={<HostelDetails />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/booking/:id" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
           <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
-          <Route path="/*" element={<PageNotFound />} />
           <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </AuthProvider>
