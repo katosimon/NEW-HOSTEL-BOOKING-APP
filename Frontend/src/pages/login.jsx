@@ -1,158 +1,110 @@
-// Import React and required hooks
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// Import authentication context (for handling login)
-import { useAuth } from '../context/AuthContextContext';
+import axios from 'axios';
 
-const Login = () => {
-  // State to hold email and password input values
-  const [formData, setFormData] = useState({ 
-    email: '', 
-    password: ''
-  });
-  
-   // State to handle error messages
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  // State to handle loading spinner while processing login
   const [loading, setLoading] = useState(false);
-
-  // Access the login method from authentication context
-  const { login } = useAuth();
-    // Used for programmatic navigation
   const navigate = useNavigate();
-  
- // Function to handle form submission
-  const handleSubmit = async (e, isAdmin = false) => {
-    e.preventDefault();// Prevent default page reload
-    setLoading(true);// Show loading state
-    setError(''); // Clear previous errors
-    
-// Call login function with email, password, and admin flag
-    const result = await login(formData.email, formData.password, isAdmin);
 
-    // If login is successful, navigate based on user type
-    if (result.success) {
-      if (isAdmin) {
-        navigate('/admin/dashboard');// Redirect admin to admin dashboard
-      } else {
-        navigate('/');// Redirect regular user to home page
-      }
-    } else {
-       // If login fails, display the error message
-      setError(result.message);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!email || !password) {
+      setError('Please enter both email and password.');
+      return;
     }
-    setLoading(false); // Stop loading spinner
-  };
-  
-  // Function to handle input field changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    // Update state dynamically based on input name
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+
+    setError('');
+    setLoading(true);
+
+    try {
+      const result = await axios.post('http://localhost:5000/login', { email, password });
+
+      console.log(result.data);
+
+      if (result.data === 'Login Successful') {
+        // Optional: Save session (e.g., token)
+        // localStorage.setItem('user', JSON.stringify(result.data.user));
+
+        navigate('/home');
+      } else {
+        setError('Invalid email or password. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please check your server or network.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-        // Full-page centered container for the login form
-    <div className="container-fluid vh-100 d-flex justify-content-center align-items-center bg-light">
-      <div className="card shadow-lg" style={{ width: '1110px' }}>
-        <div className="card-content text-center p-5">
+    <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
+      <div className="bg-white p-4 rounded w-25 shadow">
+        <h2 className="mb-3 text-center">Login</h2>
 
-           {/* App title */}
-          <h1 className="display-5 fw-bold text-primary mb-3">HostelHub</h1>
-
-            {/* Login heading */}
-          <h2 className="mb-4">Login</h2>
-
-            {/* Link to registration page */}
-          <p className="card-text mb-4">
-            Don't have an account? <Link to="/register" className="text-decoration-none">Register</Link>
-          </p>
-
-            {/* Display error message if any */}
-          {error && <div className="alert alert-danger mb-4">{error}</div>}
-
-           {/* Regular user login form */}
-          <form onSubmit={(e) => handleSubmit(e, false)} className="mb-4">
-               {/* Email input */}
-            <div className="form-group mb-3">
-              <input
-                type="email"
-                className="form-control form-control-lg"
-                placeholder="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-             {/* Password input */}
-            <div className="form-group mb-4">
-              <input
-                type="password"
-                className="form-control form-control-lg"
-                placeholder="Password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            {/* Regular login button */}
-            <button 
-              type="submit" 
-              className="btn btn-primary btn-lg w-100 mb-3"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                   {/* Spinner while loading */}
-                  <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                  Logging in...
-                </>
-              ) : (
-                'Login'
-              )}
-            </button>
-          </form>
-
-          {/* Divider and admin login section */}
-          <div className="mt-4 pt-4 border-top">
-            <p className="text-muted mb-3">— OR —</p>
-
-            {/* Admin login button */}
-            <button 
-              onClick={(e) => handleSubmit(e, true)}
-              className="btn btn-outline-danger btn-lg w-100 mb-3"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                  Logging in...
-                </>
-              ) : (
-                'Login as Administrator'
-              )}
-            </button>
-
-              {/* Note about admin access */}
-            <small className="text-muted d-block">
-              <i className="bi bi-info-circle me-1"></i>
-              Admin access requires special permissions.
-            </small>
+        {error && (
+          <div className="alert alert-danger py-2" role="alert">
+            {error}
           </div>
-        </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="email">
+              <strong>Email</strong>
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter Email"
+              autoComplete="off"
+              className="form-control rounded-0"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password">
+              <strong>Password</strong>
+            </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter Password"
+              autoComplete="off"
+              className="form-control rounded-0"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-success w-100 rounded-0"
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+
+        <p className="mt-3 text-center">
+          Don't have an account?
+        </p>
+        <Link
+          to="/register"
+          className="btn btn-outline-secondary w-100 rounded-0"
+        >
+          Sign Up
+        </Link>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
-
-
-
