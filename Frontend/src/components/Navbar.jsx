@@ -37,7 +37,7 @@ const Navbar = () => {
           <form onSubmit={handleSearch} className="search-bar">
             <input
               type="text"
-              placeholder="Search hostels by city or name..."
+              placeholder="Search hostels by name..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -46,6 +46,7 @@ const Navbar = () => {
         )}
 
         <div className="nav-links">
+          <Link to="/">Home</Link>
           <Link to="/hostels">Hostels</Link>
           <Link to="/contact">Contact Us</Link>
           
