@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Login from './pages/login';
-import Register from './pages/Register';
+import Register from './pages/Signup';
 import Hostels from './pages/Hostels';
 import HostelDetails from './pages/Hostelsdetails';
 import Booking from './pages/Booking';
@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/Signup" element={<Signup />} />
           <Route path="/hostels" element={<Hostels />} />
           <Route path="/hostel/:id" element={<HostelDetails />} />
           <Route path="/contact" element={<ContactUs />} />
