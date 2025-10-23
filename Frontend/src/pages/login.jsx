@@ -97,7 +97,7 @@ function Login() {
           Don't have an account?
         </p>
         <Link
-          to="/register"
+          to="/Signup"
           className="btn btn-outline-secondary w-100 rounded-0"
         >
           Sign Up
@@ -108,3 +108,4 @@ function Login() {
 }
 
 export default Login;
+
