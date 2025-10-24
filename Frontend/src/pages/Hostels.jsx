@@ -129,7 +129,7 @@ const Hostels = () => {
                     <Link to={`/hostel/${hostel._id}`} className="details-btn">
                       View Details
                     </Link>
-                    <Link to={`/book/${hostel._id}`} className="book-btn">
+                    <Link to={`/booking/${hostel._id}`} className="book-btn">
                       Book Now
                     </Link>
                   </div>
@@ -144,3 +144,4 @@ const Hostels = () => {
 };
 
 export default Hostels;
+
