@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Booking = () => {
   const { id } = useParams();
@@ -33,9 +35,9 @@ const Booking = () => {
         checkIn: formData.checkIn,
         checkOut: formData.checkOut
       });
-      navigate('/account', { state: { message: 'Booking successful!' } });
+      navigate('/account', toast.success("successfully booked"));
     } catch (error) {
-      setError(error.response?.data?.message || 'Booking failed');
+      setError(error.response?.data?.message || toast.error(error.message));
     } finally {
       setLoading(false);
     }
@@ -53,11 +55,11 @@ const Booking = () => {
             <div className="card-content">
               <h3>{hostel.name}</h3>
               <p>{hostel.location}</p>
-              <p className="price">${hostel.price}/month</p>
+              <p className="price">200/semester</p>
             </div>
           </div>
 
-          {error && <div className="alert alert-danger">{error}</div>}
+          {/* {error && <div className="alert alert-danger">{error}</div>} */}
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
