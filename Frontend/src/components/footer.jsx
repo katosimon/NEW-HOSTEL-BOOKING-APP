@@ -173,8 +173,7 @@ const Footer = () => {
               <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/hostels">Find Hostels</Link></li>
-                <li><Link to="/destinations">Destinations</Link></li>
-                <li><Link to="/blog">Travel Blog</Link></li>
+                
               </ul>
             </nav>
           </div>
@@ -187,7 +186,7 @@ const Footer = () => {
                 <li><Link to="/contact">Contact Us</Link></li>
                 <li><Link to="/faqs">FAQs</Link></li>
                 <li><Link to="/terms">Terms of Service</Link></li>
-                <li><Link to="/privacy">Privacy Policy</Link></li>
+             
               </ul>
             </nav>
           </div>
