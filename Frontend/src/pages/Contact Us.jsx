@@ -114,14 +114,14 @@ const ContactUs = () => {
             <span className="icon">📍</span>
             <div>
               <h3>Address</h3>
-              <p>123 Hostel Street, Colombo 04, Sri Lanka</p>
+              <p>Makerere University</p>
             </div>
           </div>
           <div className="info-item">
             <span className="icon">📞</span>
             <div>
               <h3>Phone</h3>
-              <p>+94 112 345 678</p>
+              <p>+256759836015</p>
             </div>
           </div>
           <div className="info-item">
