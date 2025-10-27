@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// Uncomment the line below and install react-icons if you want to use icons
-// import { FaFacebook, FaTwitter, FaInstagram, FaAppStoreIos, FaGooglePlay } from 'react-icons/fa';
+// install react-icons if you want to use icons(npm install react-icons)
+import { FaFacebook, FaTwitter, FaInstagram, FaAppStoreIos, FaGooglePlay } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -154,7 +154,7 @@ const Footer = () => {
             </p>
             <div className="social-icons">
               {/* Uncomment to use icons */}
-              {/* <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <FaFacebook />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
@@ -162,7 +162,7 @@ const Footer = () => {
               </a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <FaInstagram />
-              </a> */}
+              </a> 
             </div>
           </div>
 
@@ -198,12 +198,12 @@ const Footer = () => {
             <p className="footer-tagline">Book on the go with our mobile app.</p>
             <div className="app-badges">
               {/* Uncomment to use icons */}
-              {/* <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
+              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
                 <FaGooglePlay /> <span>Google Play</span>
               </a>
               <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
                 <FaAppStoreIos /> <span>App Store</span>
-              </a> */}
+              </a>
               <p style={{color: '#bdc3c7'}}>App Store and Google Play links here.</p>
             </div>
           </div>
