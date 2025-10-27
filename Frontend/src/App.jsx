@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Login from './pages/login';
-import Register from './pages/Signup';
+import Signup from './pages/Signup';
 import Hostels from './pages/Hostels';
 import HostelDetails from './pages/Hostelsdetails';
 import Booking from './pages/Booking';
