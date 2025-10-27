@@ -43,7 +43,7 @@ const Hostels = () => {
      {
       _id: 'demo-2',
       name: 'Mountain View Retreat',
-      type: 'female',
+      type: 'mixed',
       location: 'Hill-side Campus',
       description:
         'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
@@ -54,7 +54,7 @@ const Hostels = () => {
      {
       _id: 'demo-2',
       name: 'Mountain View Retreat',
-      type: 'female',
+      type: 'mixed',
       location: 'Hill-side Campus',
       description:
         'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
@@ -76,7 +76,7 @@ const Hostels = () => {
      {
       _id: 'demo-2',
       name: 'Mountain View Retreat',
-      type: 'female',
+      type: 'mixed',
       location: 'Hill-side Campus',
       description:
         'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
