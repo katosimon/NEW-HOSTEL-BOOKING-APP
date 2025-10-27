@@ -1,135 +1,186 @@
- import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
-function Signup() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContextContext';
+
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    firstName: '',
+    lastName: '',
+    hostelRegistrationNumber: ''
+  });
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // State to toggle between user and admin
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Basic validation
-    if (!name || !email || !password) {
-      setError('Please fill in all fields.');
-      setSuccess('');
-      return;
-    }
-
-    setError('');
-    setSuccess('');
     setLoading(true);
+    setError('');
 
-    try {
-      const result = await axios.post('http://localhost:5000/register', {
-        name,
-        email,
-        password,
-      });
-
-      console.log(result.data);
-
-      // You can adjust this check based on your backend response
-      if (result.data === 'User registered successfully' || result.status === 200) {
-        setSuccess('Registration successful! Redirecting to login...');
-        setTimeout(() => navigate('/login'), 1500);
-      } else {
-        setError('Registration failed. Please try again.');
-      }
-    } catch (err) {
-      console.error(err);
-      setError('Something went wrong. Please check your server or connection.');
-    } finally {
-      setLoading(false);
+    let result;
+    if (isAdmin) {
+      // Admin registration logic
+      result = await register(
+        formData.firstName,
+        formData.lastName,
+        formData.email,
+        formData.password,
+        formData.hostelRegistrationNumber,
+        formData.phone
+      );
+    } else {
+      // Normal user registration logic
+      result = await register(
+        formData.name,
+        formData.email,
+        formData.password,
+        formData.phone
+      );
     }
+
+    if (result.success) {
+      navigate('/');
+    } else {
+      setError(result.message);
+    }
+    setLoading(false);
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-      <div className="bg-white p-4 rounded w-25 shadow">
-        <h2 className="mb-3 text-center">Register</h2>
+    <div className="container flex-center">
+      <div className="card" style={{ width: '400px' }}>
+        <div className="card-content text-center">
+          <h2>{isAdmin ? 'Admin Register' : 'User Register'}</h2>
+          <p className="card-text">
+            {isAdmin ? 'Register as a normal user? ' : 'Register as an admin? '}
+            <span onClick={() => setIsAdmin(!isAdmin)} style={{ cursor: 'pointer', color: 'blue' }}>
+              Click here
+            </span>
+          </p>
 
-        {error && (
-          <div className="alert alert-danger py-2" role="alert">
-            {error}
-          </div>
-        )}
-        {success && (
-          <div className="alert alert-success py-2" role="alert">
-            {success}
-          </div>
-        )}
+          {error && <div className="alert alert-danger">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name">
-              <strong>Full Name</strong>
-            </label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Enter Full Name"
-              autoComplete="off"
-              className="form-control rounded-0"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email</strong>
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter Email"
-              autoComplete="off"
-              className="form-control rounded-0"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password">
-              <strong>Password</strong>
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter Password"
-              autoComplete="off"
-              className="form-control rounded-0"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="btn btn-success w-100 rounded-0"
-            disabled={loading}
-          >
-            {loading ? 'Registering...' : 'Register'}
-          </button>
-        </form>
-
-        <p className="mt-3 text-center">Already have an account?</p>
-        <Link
-          to="/login"
-          className="btn btn-outline-secondary w-100 rounded-0"
-        >
-          Login
-        </Link>
+          <form onSubmit={handleSubmit}>
+            {isAdmin ? (
+              <>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="First Name"
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Last Name"
+                    value={formData.lastName}
+                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Hostel Registration Number (Required)"
+                    value={formData.hostelRegistrationNumber}
+                    onChange={(e) => setFormData({ ...formData, hostelRegistrationNumber: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="tel"
+                    className="form-control"
+                    placeholder="Contact (Optional)"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="tel"
+                    className="form-control"
+                    placeholder="Phone (Optional)"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    required
+                  />
+                </div>
+              </>
+            )}
+            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+              {loading ? 'Creating account...' : isAdmin ? 'Register Admin' : 'Register User'}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Signup;
