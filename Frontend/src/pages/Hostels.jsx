@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import hostel1 from '../assets/hostel1.jpg';
+import hostel2 from '../assets/hostel2.jpg';
+import hostel3 from '../assets/hostel3.jpg';
+import hostel4 from '../assets/hostel4.jpg';
+import hostel5 from '../assets/hostel5.jpg';
+import hostel6 from '../assets/hostel6.jpg';
+
+
 
 const Hostels = () => {
   const [hostels, setHostels] = useState([]);
@@ -19,7 +27,7 @@ const Hostels = () => {
         'A modern, eco-friendly hostel in the city centre with co-working spaces and a rooftop café.',
       price: 450,
       rating: '4.7',
-      images: ['https://source.unsplash.com/random/400x300?hostel&sig=demo1'],
+      images: [hostel1],
     },
     {
       _id: 'demo-2',
@@ -30,8 +38,52 @@ const Hostels = () => {
         'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
       price: 380,
       rating: '4.5',
-      images: ['https://source.unsplash.com/random/400x300?hostel&sig=demo2'],
+      images: [hostel2],
     },
+     {
+      _id: 'demo-2',
+      name: 'Mountain View Retreat',
+      type: 'female',
+      location: 'Hill-side Campus',
+      description:
+        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
+      price: 380,
+      rating: '4.5',
+      images: [hostel3],
+    },
+     {
+      _id: 'demo-2',
+      name: 'Mountain View Retreat',
+      type: 'female',
+      location: 'Hill-side Campus',
+      description:
+        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
+      price: 380,
+      rating: '4.5',
+      images: [hostel4],
+    },
+     {
+      _id: 'demo-2',
+      name: 'Mountain View Retreat',
+      type: 'female',
+      location: 'Hill-side Campus',
+      description:
+        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
+      price: 380,
+      rating: '4.5',
+      images: [hostel5],
+    },
+     {
+      _id: 'demo-2',
+      name: 'Mountain View Retreat',
+      type: 'female',
+      location: 'Hill-side Campus',
+      description:
+        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
+      price: 380,
+      rating: '4.5',
+      images: [hostel6],
+    }
   ];
   /* ---------------------------------- */
 
@@ -144,4 +196,3 @@ const Hostels = () => {
 };
 
 export default Hostels;
-
