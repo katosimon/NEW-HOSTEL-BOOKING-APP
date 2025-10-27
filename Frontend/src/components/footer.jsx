@@ -150,7 +150,7 @@ const Footer = () => {
           <div className="footer-section">
             <h2 className="footer-logo">HostelHub</h2>
             <p className="footer-tagline">
-              Your gateway to affordable adventures. Find, compare, and book the perfect hostel for your next journey.
+              Your gateway to affordable accomodation. Find, compare, and book the perfect hostel for your academic journey.
             </p>
             <div className="social-icons">
               {/* Uncomment to use icons */}
@@ -185,27 +185,13 @@ const Footer = () => {
               <ul>
                 <li><Link to="/contact">Contact Us</Link></li>
                 <li><Link to="/faqs">FAQs</Link></li>
-                <li><Link to="/terms">Terms of Service</Link></li>
              
               </ul>
             </nav>
           </div>
 
-          {/* Column 4: Get the App */}
-          <div className="footer-section">
-            <h4>Get the App</h4>
-            <p className="footer-tagline">Book on the go with our mobile app.</p>
-            <div className="app-badges">
-              {/* Uncomment to use icons */}
-              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
-                <FaGooglePlay /> <span>Google Play</span>
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
-                <FaAppStoreIos /> <span>App Store</span>
-              </a>
-              <p style={{color: '#bdc3c7'}}>App Store and Google Play links here.</p>
-            </div>
-          </div>
+      
+         
         </div>
 
         {/* Footer Bottom Bar */}
