@@ -184,7 +184,7 @@ const Footer = () => {
             <nav>
               <ul>
                 <li><Link to="/contact">Contact Us</Link></li>
-                <li><Link to="/faqs">FAQs</Link></li>
+                <li><Link to="/contact">FAQs</Link></li>
              
               </ul>
             </nav>
@@ -204,3 +204,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
