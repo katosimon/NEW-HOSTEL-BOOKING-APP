@@ -178,10 +178,10 @@ const Hostels = () => {
                     <span className="rating">⭐ {hostel.rating}</span>
                   </div>
                   <div className="card-actions">
-                    <Link to={`/hostel/${hostel._id}`} className="details-btn">
+                    <Link to={`/hostel/${hostel._id}`} className="btn btn-secondary">
                       View Details
                     </Link>
-                    <Link to={`/booking/${hostel._id}`} className="book-btn">
+                    <Link to={`/booking/${hostel._id}`} className="btn btn-primary">
                       Book Now
                     </Link>
                   </div>
@@ -196,3 +196,4 @@ const Hostels = () => {
 };
 
 export default Hostels;
+
