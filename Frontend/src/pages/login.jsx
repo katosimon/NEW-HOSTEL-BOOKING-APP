@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './Login.css'; // Import custom CSS file
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -43,42 +44,42 @@ function Login() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-      <div className="bg-white p-4 rounded w-25 shadow">
-        <h2 className="mb-3 text-center">Login</h2>
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Login</h2>
 
         {error && (
-          <div className="alert alert-danger py-2" role="alert">
+          <div className="error-message">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email</strong>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              Email
             </label>
             <input
               type="email"
               id="email"
               placeholder="Enter Email"
               autoComplete="off"
-              className="form-control rounded-0"
+              className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="password">
-              <strong>Password</strong>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Password
             </label>
             <input
               type="password"
               id="password"
               placeholder="Enter Password"
               autoComplete="off"
-              className="form-control rounded-0"
+              className="form-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -86,19 +87,19 @@ function Login() {
 
           <button
             type="submit"
-            className="btn btn-success w-100 rounded-0"
+            className="login-button"
             disabled={loading}
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 
-        <p className="mt-3 text-center">
+        <p className="signup-prompt">
           Don't have an account?
         </p>
         <Link
           to="/Signup"
-          className="btn btn-outline-secondary w-100 rounded-0"
+          className="signup-link"
         >
           Sign Up
         </Link>
@@ -108,4 +109,3 @@ function Login() {
 }
 
 export default Login;
-
