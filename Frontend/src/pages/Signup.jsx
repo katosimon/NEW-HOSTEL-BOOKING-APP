@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContextContext';
+import './Signup.css'; 
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -54,18 +54,18 @@ const Signup = () => {
   };
 
   return (
-    <div className="container flex-center">
-      <div className="card" style={{ width: '400px' }}>
-        <div className="card-content text-center">
-          <h2>{isAdmin ? 'Admin Register' : 'User Register'}</h2>
-          <p className="card-text">
+    <div className="signup-container">
+      <div className="signup-card">
+        <div className="signup-card-content">
+          <h2 className="signup-title">{isAdmin ? 'Admin Register' : 'User Register'}</h2>
+          <p className="signup-toggle-text">
             {isAdmin ? 'Register as a normal user? ' : 'Register as an admin? '}
-            <span onClick={() => setIsAdmin(!isAdmin)} style={{ cursor: 'pointer', color: 'blue' }}>
+            <span onClick={() => setIsAdmin(!isAdmin)} className="signup-toggle-link">
               Click here
             </span>
           </p>
 
-          {error && <div className="alert alert-danger">{error}</div>}
+          {error && <div className="error-message">{error}</div>}
 
           <form onSubmit={handleSubmit}>
             {isAdmin ? (
@@ -73,7 +73,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-input"
                     placeholder="First Name"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
@@ -83,7 +83,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Last Name"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
@@ -93,7 +93,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -103,7 +103,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -113,7 +113,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Hostel Registration Number (Required)"
                     value={formData.hostelRegistrationNumber}
                     onChange={(e) => setFormData({ ...formData, hostelRegistrationNumber: e.target.value })}
@@ -123,7 +123,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="tel"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Contact (Optional)"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -135,7 +135,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Full Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -145,7 +145,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -155,7 +155,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="tel"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Phone (Optional)"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -164,7 +164,7 @@ const Signup = () => {
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-input"
                     placeholder="Password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -173,7 +173,7 @@ const Signup = () => {
                 </div>
               </>
             )}
-            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+            <button type="submit" className="signup-button" disabled={loading}>
               {loading ? 'Creating account...' : isAdmin ? 'Register Admin' : 'Register User'}
             </button>
           </form>
