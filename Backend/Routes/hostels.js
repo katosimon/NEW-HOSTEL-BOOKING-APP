@@ -1,9 +1,12 @@
-const express = require('express');
-const router = express.Router();
+import mongoose from 'mongoose';
+const HostelSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  location: { type: String, required: true },
+  type: { type: String, required: true, default:"mixed" },
+  roomtype: [{ single: Number }, { double: Number }],
+  shuttle:{type:Boolean,required:true},
+  comment:{type: String , default:"Very good hostel"},
+},
+{timestamps:true});
 
-router.get('/', (req, res) => {
-  res.json({ ok: true, route: 'hostels', hostels: [] });
-});
-
-module.exports = router;
-
+export default mongoose.model("hostel",HostelSchema)
