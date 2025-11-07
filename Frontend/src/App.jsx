@@ -17,6 +17,7 @@ import './styles.css';
 import Footer from './components/footer';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import FAQPage from './pages/FAQsPage';
+import HostelAdminDashboard from './pages/HostelAdminDashboard';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/faqs" element={<FAQPage />} />
+          <Route path="/hostel-admin" element={<HostelAdminDashboard />} />
         </Routes>
         <Footer />
       </Router>
