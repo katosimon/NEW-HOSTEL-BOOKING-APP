@@ -47,7 +47,7 @@ const ContactUs = () => {
 
   const contactInfo = [
     { icon: <FaMapMarkerAlt />, title: 'Address', content: '123 Kampala Road, Lumumba, Uganda' },
-    { icon: <FaPhone />, title: 'Phone', content: '+256 112 345 678' },
+    { icon: <FaPhone />, title: 'Phone', content: '+256 759836015' },
     { icon: <FaEnvelope />, title: 'Email', content: 'infosupport@hostelhub.com' }
   ];
 
