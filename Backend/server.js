@@ -1,24 +1,19 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const authRoutes = require('./routes/auth');
-
-
-dotenv.config();
-const app = express();
-
+import  hostelRoute from '../Routes/hostelRoute.js'
+import bookingRoute from '../Routes/bookingRoute.js'
+import userRoute from '../Routes/userRoute.js'
+import express from 'express';
+import { DbConnect } from './db.js';
+import cors from 'cors';
+export const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hostel_booking')
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+app.use('/api/users',userRoute);
+app.use('/api/hostels',hostelRoute);
+app.use('/api/bookings',bookingRoute)
 
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/hostels', require('./routes/hostels'));
-app.use('/api/bookings', require('./routes/bookings'));
-app.use('/api/admin', require('./routes/admin'));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+DbConnect();
+const PORT = process.env.port || 8080;
+app.listen(PORT, () => {
+  console.log(`example is on port ${PORT}`);
+});
