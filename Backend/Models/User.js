@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
-    password: { type: String, required: true }, // we’ll hash later
+    password: { type: String, required: true }, 
   },
   { timestamps: true }
 );
@@ -26,8 +26,9 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 };
 userSchema.methods.generateAuthToken = function() {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-        expiresIn: '2h' // Token expires in 1 hour
+        expiresIn: '2h' 
     });
   }
 
 export default mongoose.model('User', userSchema);
+
