@@ -1,4 +1,3 @@
-import { timeStamp } from 'console';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'; 
@@ -31,4 +30,5 @@ userSchema.methods.generateAuthToken = function() {
   }
 
 export default mongoose.model('User', userSchema);
+
 
