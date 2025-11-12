@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContextContext';
+import { useAuth } from '../context/AuthContext;
 import axios from 'axios';
 
 const HostelDetails = () => {
@@ -104,3 +104,4 @@ const HostelDetails = () => {
 };
 
 export default HostelDetails;
+
