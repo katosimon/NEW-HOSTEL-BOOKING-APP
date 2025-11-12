@@ -18,7 +18,7 @@ const Hostels = () => {
   useEffect(() => {
     const fetchHostels = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/hostels'); // Fetch all hostels
+        const res = await axios.get('https://new-hostel-booking-app.onrender.com/api/hostels'); // Fetch all hostels
         let data = Array.isArray(res.data) ? res.data : res.data.data || [];
 
         const searchTerm = searchParams.get('search')?.toLowerCase() || '';
@@ -124,3 +124,4 @@ const Hostels = () => {
 };
 
 export default Hostels;
+
