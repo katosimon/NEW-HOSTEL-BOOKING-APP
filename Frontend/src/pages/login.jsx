@@ -23,7 +23,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const result = await axios.post('http://localhost:5000/login', { email, password });
+      const result = await axios.post('https://new-hostel-booking-app.onrender.com/api/userslogin', { email, password });
 
       console.log(result.data);
 
@@ -109,3 +109,4 @@ function Login() {
 }
 
 export default Login;
+
