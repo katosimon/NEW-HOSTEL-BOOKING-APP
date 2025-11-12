@@ -1,108 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContextContext';
 import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import { useAuth } from '../context/AuthContext';
+import image1 from '../assets/pic1.jpg';
 
 const Account = () => {
-  const { user, logout } = useAuth();
-  const location = useLocation();
+  const { user, logout, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  
+  const location = useLocation();
+
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [cancellingId, setCancellingId] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(location.state?.message || '');
+  const [profile, setProfile] = useState(null); // ✅ for booker info from backend
 
-  // Clear success message after 5 seconds
-  useEffect(() => {
-    if (successMessage) {
-      const timer = setTimeout(() => {
-        setSuccessMessage('');
-        // Clear the location state to prevent message from showing again on refresh
-        window.history.replaceState({}, document.title);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [successMessage]);
+  const getToken = () => localStorage.getItem('token');
 
   useEffect(() => {
-    if (user) {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        }
-      };
-      
-      setLoading(true);
-      setError(null);
-      
-      axios.get('/api/bookings/my-bookings', config)
-        .then(response => setBookings(response.data))
-        .catch(error => {
+    if (!authLoading && user) {
+      axios
+        .get('http://localhost:8000/api/bookings', {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        })
+        .then((response) => {
+          // ✅ Update both bookings and profile info
+          setBookings(response.data.data || []);
+          setProfile(response.data.user || user); // fallback to auth user if backend didn't send
+        })
+        .catch((error) => {
           console.error('Error fetching bookings:', error);
-          setError('Failed to load bookings. Please try again later.');
+          toast.error('Failed to fetch bookings.');
         })
         .finally(() => setLoading(false));
+    } else if (!authLoading && !user) {
+      navigate('/login');
     }
-  }, [user]);
+  }, [user, authLoading, navigate]);
+
+  if (authLoading) return <div className="loading">Checking login status...</div>;
+  if (!user) return null;
 
   const handleCancelBooking = async (bookingId) => {
-    if (window.confirm('Are you sure you want to cancel this booking?')) {
-      setCancellingId(bookingId);
-      
+    if (window.confirm('Cancel this booking?')) {
       try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`
-          }
-        };
-        
-        await axios.put(`/api/bookings/${bookingId}/cancel`, {}, config);
-        
-        setBookings(bookings.map(b => 
-          b._id === bookingId ? {...b, status: 'cancelled'} : b
-        ));
-        
-        setSuccessMessage('Booking cancelled successfully');
+        await axios.put(
+          `http://localhost:8000/api/bookings/${bookingId}/cancel`,
+          {},
+          { headers: { Authorization: `Bearer ${getToken()}` } }
+        );
+
+        setBookings((prev) =>
+          prev.map((b) =>
+            b._id === bookingId ? { ...b, status: 'cancelled' } : b
+          )
+        );
+        toast.success('Booking cancelled successfully!');
       } catch (error) {
-        console.error('Error cancelling booking:', error);
-        setError('Failed to cancel booking. Please try again.');
-      } finally {
-        setCancellingId(null);
+        console.error('Cancellation failed:', error);
+        toast.error('Cancellation failed.');
       }
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
-  if (!user) return null;
-
   return (
     <div className="container">
-      {/* Success Messages */}
-      {successMessage && (
-        <div className="alert alert-success" role="alert">
-          {successMessage}
-        </div>
-      )}
-      
-      {/* Error Messages */}
-      {error && (
-        <div className="alert alert-danger" role="alert">
-          {error}
-          <button 
-            type="button" 
-            className="close" 
-            onClick={() => setError(null)}
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+      <Toaster position="top-right" />
+
+      {location.state?.message && (
+        <div className="alert alert-success">{location.state.message}</div>
       )}
 
       <div className="grid grid-2">
@@ -110,24 +75,25 @@ const Account = () => {
         <div className="card">
           <div className="card-content text-center">
             <h2>My Profile</h2>
-            <div style={{ 
-              width: '80px', 
-              height: '80px', 
-              margin: '20px auto', 
-              background: '#e5e7eb', 
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '32px',
-              color: '#6b7280'
-            }}>
-              {user.name.charAt(0).toUpperCase()}
+            <div
+              style={{
+                width: '80px',
+                height: '80px',
+                margin: '20px auto',
+                borderRadius: '50%',
+                overflow: 'hidden',
+              }}
+            >
+              <img
+                src={image1}
+                alt="Profile Picture"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
-            <h3>{user.name}</h3>
-            <p className="card-text">{user.email}</p>
-            {user.phone && <p className="card-text">{user.phone}</p>}
-            <button onClick={handleLogout} className="btn btn-danger mt-20">
+            {/* ✅ Now using backend profile info if available */}
+            <h3>{profile?.name || 'Loading Name...'}</h3>
+            <p className="card-text">{profile?.email || 'Loading Email...'}</p>
+            <button onClick={logout} className="btn btn-danger mt-20">
               Logout
             </button>
           </div>
@@ -140,18 +106,9 @@ const Account = () => {
             {loading ? (
               <div className="loading">
                 <div className="spinner"></div>
-                <p className="text-center mt-10">Loading your bookings...</p>
               </div>
             ) : bookings.length === 0 ? (
-              <div className="text-center py-40">
-                <p className="mb-20">No bookings yet</p>
-                <button 
-                  className="btn btn-primary"
-                  onClick={() => navigate('/hostels')}
-                >
-                  Browse Hostels
-                </button>
-              </div>
+              <p className="text-center">No bookings yet</p>
             ) : (
               <div>
                 {bookings.map((booking) => (
@@ -159,43 +116,39 @@ const Account = () => {
                     <div className="card-content">
                       <div className="flex-between">
                         <div>
-                          <h4>{booking.hostel.name}</h4>
-                          <p className="card-text">{booking.hostel.location}</p>
+                          <h4>
+                            {booking.hostelBooked?.name || 'Hostel Name N/A'}
+                          </h4>
                           <p className="card-text">
-                            {new Date(booking.checkIn).toLocaleDateString()} - {new Date(booking.checkOut).toLocaleDateString()}
+                            {booking.hostelBooked?.location || 'Location N/A'}
                           </p>
-                          <p className="card-text text-small">
-                            {booking.guests} {booking.guests === 1 ? 'guest' : 'guests'}
-                          </p>
+                          {/* ✅ Show date */}
+                          <small>
+                            Booked on:{' '}
+                            {new Date(booking.createdAt).toLocaleDateString()}
+                          </small>
                         </div>
-                        <div className="text-right">
-                          <span className={`badge ${
-                            booking.status === 'confirmed' ? 'badge-success' :
-                            booking.status === 'pending' ? 'badge-warning' :
-                            'badge-danger'
-                          }`}>
-                            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                        <div>
+                          <span
+                            className={`badge ${
+                              booking.status === 'confirmed'
+                                ? 'badge-success'
+                                : booking.status === 'pending'
+                                ? 'badge-warning'
+                                : 'badge-danger'
+                            }`}
+                          >
+                            {booking.status || 'pending'}
                           </span>
-                          <p className="price mt-10">${booking.totalAmount}</p>
                         </div>
                       </div>
-                      {booking.status === 'pending' && (
-                        <div className="mt-20">
-                          <button
-                            onClick={() => handleCancelBooking(booking._id)}
-                            className="btn btn-danger"
-                            disabled={cancellingId === booking._id}
-                          >
-                            {cancellingId === booking._id ? (
-                              <>
-                                <span className="spinner-small"></span>
-                                Cancelling...
-                              </>
-                            ) : (
-                              'Cancel Booking'
-                            )}
-                          </button>
-                        </div>
+                      {(booking.status || 'pending') === 'pending' && (
+                        <button
+                          onClick={() => handleCancelBooking(booking._id)}
+                          className="btn btn-danger"
+                        >
+                          Cancel Booking
+                        </button>
                       )}
                     </div>
                   </div>
