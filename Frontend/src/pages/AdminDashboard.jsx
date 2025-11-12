@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContextContext';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
 const AdminDashboard = () => {
@@ -218,3 +218,4 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
