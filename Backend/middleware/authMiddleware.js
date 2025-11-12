@@ -1,34 +1,32 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import User from "../Models/User.js";
 
 export const protect = async (req, res, next) => {
   let token;
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      token = req.headers.authorization.split(' ')[1];
+      token = req.headers.authorization.split(" ")[1];
 
-      if (!token) {
-        return res
-          .status(401)
-          .json({ message: 'Not authorized, token format invalid' });
-      }
-
-      // Verify token using your JWT_SECRET from the .env file
+      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Attach the decoded user ID to the request object
-      req.user = decoded.id;
+      // Find user and attach to request
+      req.user = await User.findById(decoded.id).select("_id name email");
 
-      next(); // Proceed to the controller
+      if (!req.user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      next();
     } catch (error) {
-      console.error('Token verification failed:', error.message);
-      return res.status(401).json({ message: 'Not authorized, token failed' });
+      console.error("Auth error:", error.message);
+      res.status(401).json({ message: "Not authorized, token failed" });
     }
   } else {
-    // If no authorization header was provided at all
-    return res.status(401).json({ message: 'Not authorized, no token' });
+    res.status(401).json({ message: "No token provided" });
   }
 };
