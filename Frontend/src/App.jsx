@@ -9,7 +9,7 @@ import HostelDetails from './pages/Hostelsdetails';
 import Booking from './pages/Booking';
 import Account from './pages/Account';
 import AdminDashboard from './pages/AdminDashboard';
-import ContactUs from './pages/ContactUs';
+import ContactUs from './pages/Contact Us';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import HomePage from './pages/intro';
