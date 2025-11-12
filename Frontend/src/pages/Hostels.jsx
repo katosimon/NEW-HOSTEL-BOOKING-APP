@@ -8,108 +8,36 @@ import hostel4 from '../assets/hostel4.jpg';
 import hostel5 from '../assets/hostel5.jpg';
 import hostel6 from '../assets/hostel6.jpg';
 
-
-
+const hostelImages = [hostel1, hostel2, hostel3, hostel4, hostel5, hostel6];
 const Hostels = () => {
   const [hostels, setHostels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({ type: '' });
   const [searchParams] = useSearchParams();
 
-  /* -------  TWO MOCK HOSTELS  ------- */
-  const MOCK_HOSTELS = [
-    {
-      _id: 'demo-1',
-      name: 'Urban Oasis Hostel',
-      type: 'mixed',
-      location: 'Downtown Metro',
-      description:
-        'A modern, eco-friendly hostel in the city centre with co-working spaces and a rooftop café.',
-      price: 450,
-      rating: '4.7',
-      images: [hostel1],
-    },
-    {
-      _id: 'demo-2',
-      name: 'Mountain View Retreat',
-      type: 'female',
-      location: 'Hill-side Campus',
-      description:
-        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
-      price: 380,
-      rating: '4.5',
-      images: [hostel2],
-    },
-     {
-      _id: 'demo-2',
-      name: 'Mountain View Retreat',
-      type: 'mixed',
-      location: 'Hill-side Campus',
-      description:
-        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
-      price: 380,
-      rating: '4.5',
-      images: [hostel3],
-    },
-     {
-      _id: 'demo-2',
-      name: 'Mountain View Retreat',
-      type: 'mixed',
-      location: 'Hill-side Campus',
-      description:
-        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
-      price: 380,
-      rating: '4.5',
-      images: [hostel4],
-    },
-     {
-      _id: 'demo-2',
-      name: 'Mountain View Retreat',
-      type: 'female',
-      location: 'Hill-side Campus',
-      description:
-        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
-      price: 380,
-      rating: '4.5',
-      images: [hostel5],
-    },
-     {
-      _id: 'demo-2',
-      name: 'Mountain View Retreat',
-      type: 'mixed',
-      location: 'Hill-side Campus',
-      description:
-        'Quiet hillside hostel offering panoramic views, perfect for focused study and weekend hikes.',
-      price: 380,
-      rating: '4.5',
-      images: [hostel6],
-    }
-  ];
-  /* ---------------------------------- */
-
   useEffect(() => {
     const fetchHostels = async () => {
       try {
-        const res = await axios.get(`/api/hostels`);
-        const data = Array.isArray(res.data) ? res.data : Array.isArray(res.data?.data) ? res.data.data : [];
+        const res = await axios.get('http://localhost:8000/api/hostels'); // Fetch all hostels
+        let data = Array.isArray(res.data) ? res.data : res.data.data || [];
 
         const searchTerm = searchParams.get('search')?.toLowerCase() || '';
         const typeFilter = filters.type;
 
-        const filtered = (data.length ? data : MOCK_HOSTELS).filter((h) => {
+        const filtered = data.filter((h) => {
           const matchesSearch =
             !searchTerm ||
             h.name.toLowerCase().includes(searchTerm) ||
             h.location.toLowerCase().includes(searchTerm) ||
-            h.description.toLowerCase().includes(searchTerm);
+            (h.description && h.description.toLowerCase().includes(searchTerm));
           const matchesType = !typeFilter || h.type === typeFilter;
           return matchesSearch && matchesType;
         });
 
         setHostels(filtered);
       } catch (err) {
-        console.error(err);
-        setHostels(MOCK_HOSTELS); // fallback on error
+        console.error('Error fetching hostels:', err);
+        setHostels([]); // fallback empty array
       } finally {
         setLoading(false);
       }
@@ -127,7 +55,7 @@ const Hostels = () => {
 
   return (
     <div className="container">
-      <h1 className="page-title">🏠 Find Your Perfect Hostel</h1>
+      <h1 className="page-title">🏠🪴 Find Your Perfect Hostel</h1>
 
       <div className="filter-card">
         <div className="filters">
@@ -151,8 +79,8 @@ const Hostels = () => {
           {hostels.map((hostel) => (
             <div key={hostel._id} className="hostel-card">
               <div className="image-wrapper">
-                {hostel.images?.[0] ? (
-                  <img src={hostel.images[0]} alt={hostel.name} />
+                {hostelImages?.[0] ? (
+                  <img src={hostelImages[2]} alt={hostel.name} />
                 ) : (
                   <div className="no-image">No Image</div>
                 )}
@@ -167,21 +95,21 @@ const Hostels = () => {
                 <p className="location">📍 {hostel.location}</p>
 
                 <p className="description">
-                  {hostel.description.length > 120
+                  {hostel.description && hostel.description.length > 120
                     ? `${hostel.description.substring(0, 120)}...`
                     : hostel.description}
                 </p>
 
                 <div className="card-footer">
                   <div className="price-rating">
-                    <span className="price">${hostel.price}/month</span>
-                    <span className="rating">⭐ {hostel.rating}</span>
+                    <span className="price">UGX{hostel.price}</span>
+                    <span className="rating">⭐ {hostel.rating || 'N/A'}</span>
                   </div>
                   <div className="card-actions">
-                    <Link to={`/hostel/${hostel._id}`} className="btn btn-secondary">
+                    <Link to={`/hostel/${hostel._id}`} className="details-btn">
                       View Details
                     </Link>
-                    <Link to={`/booking/${hostel._id}`} className="btn btn-primary">
+                    <Link to={`/booking/${hostel._id}`} className="book-btn">
                       Book Now
                     </Link>
                   </div>
@@ -196,4 +124,3 @@ const Hostels = () => {
 };
 
 export default Hostels;
-
