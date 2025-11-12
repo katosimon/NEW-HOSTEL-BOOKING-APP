@@ -1,4 +1,4 @@
-import Booking from '../models/Booking.js';
+import Booking from '../Models/Booking.js';
 
 export const getBookings = async (req, res, next) => {
   try {
@@ -97,3 +97,4 @@ export const deleteBooking = async (req, res, next) => {
     next(error); 
   }
 };
+
