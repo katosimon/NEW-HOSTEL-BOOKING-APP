@@ -14,7 +14,7 @@ const Booking = () => {
   useEffect(() => {
     const fetchHostel = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/hostels/${id}`);
+        const response = await axios.get(`https://new-hostel-booking-app.onrender.com/api/hostels/${id}`);
         setHostel(response.data.data || response.data);
       } catch (error) {
         console.error(error);
@@ -98,3 +98,4 @@ const Booking = () => {
 };
 
 export default Booking;
+
