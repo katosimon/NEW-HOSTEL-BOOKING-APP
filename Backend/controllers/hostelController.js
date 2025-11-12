@@ -1,5 +1,4 @@
-import { ifError } from 'assert';
-import Hostel from '../models/Hostel.js';
+import Hostel from '../Models/Hostel.js';
 export  const getHostels = async (req, res) => {
   try {
     const hostels = await Hostel.find();
@@ -44,3 +43,4 @@ export  const addHostel = async (req, res) => {
     });
   }
 };
+
