@@ -1,23 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import AuthProvider from './context/AuthProvider';
 import Navbar from './components/Navbar';
 import Login from './pages/login';
-import Signup  from './pages/Signup';
 import Hostels from './pages/Hostels';
 import HostelDetails from './pages/Hostelsdetails';
 import Booking from './pages/Booking';
 import Account from './pages/Account';
-import AdminDashboard from './pages/AdminDashboard';
+import PageNotFound from './pages/PageNotFound';
 import ContactUs from './pages/Contact Us';
+import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
-import HomePage from './pages/intro';
 import './styles.css';
+import Signup from './pages/Signup';
+import HomePage from './pages/intro';
 import Footer from './components/footer';
-import TermsOfServicePage from './pages/TermsOfServicePage';
-import FAQPage from './pages/FAQsPage';
-import HostelAdminDashboard from './pages/HostelAdminDashboard';
 
 
 function App() {
@@ -28,18 +26,18 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/Signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup />} />
+          {/* <Route path="/" element={<Hostels />} /> */}
           <Route path="/hostels" element={<Hostels />} />
           <Route path="/hostel/:id" element={<HostelDetails />} />
-          <Route path="/contact" element={<ContactUs />} />
           <Route path="/booking/:id" element={<Booking />} />
-          <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
-          <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          <Route path="/terms" element={<TermsOfServicePage />} />
-          <Route path="/faqs" element={<FAQPage />} />
-          <Route path="/hostel-admin" element={<HostelAdminDashboard />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/admin" element={<AdminDashboard />}/>
+          <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/*" element={<PageNotFound />} />
+
         </Routes>
-        <Footer />
+        <Footer/>
       </Router>
     </AuthProvider>
   );
