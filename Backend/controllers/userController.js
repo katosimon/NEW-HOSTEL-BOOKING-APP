@@ -1,4 +1,4 @@
-import User from '../models/User.js';
+import User from '../Models/User.js';
 
 export const registerUser = async (req, res, next) => {
   try {
@@ -50,3 +50,4 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+
