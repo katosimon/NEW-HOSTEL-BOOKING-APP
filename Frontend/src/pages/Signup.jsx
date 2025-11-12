@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Signup.css'; 
+import './signup.css'; 
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -184,4 +184,5 @@ const Signup = () => {
 };
 
 export default Signup;
+
 
