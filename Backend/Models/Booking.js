@@ -8,9 +8,10 @@ const bookingSchema = new mongoose.Schema(
     },
     hostelBooked: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Hostel',
+      ref: 'hostel',
     },
   },
   { timestamps: true }
 );
+
  export default mongoose.model('bookings',bookingSchema);
