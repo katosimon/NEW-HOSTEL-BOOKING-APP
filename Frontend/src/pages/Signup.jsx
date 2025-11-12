@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import "./signup.css';
 
 function Signup() {
 	const [name, setName] = useState('');
@@ -142,3 +141,4 @@ function Signup() {
 }
 
 export default Signup;
+
