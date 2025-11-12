@@ -7,12 +7,12 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.2"
   },
-  "name": "hostel-api",
+  "name": "hostel-booking-app",
   "version": "1.0.0",
-  "main": "Routes/index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node Routes/index.js",
-    "dev": "node --watch  --env-file=.env Routes/index.js",
+    "start": "node server.js",
+    "dev": "node --watch  --env-file=.env server.js",
     "test": "jest"
   },
   "author": "",
