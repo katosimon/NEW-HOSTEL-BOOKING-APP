@@ -1,0 +1,167 @@
+/* Booking.module.css */
+
+/* --- General Layout & Container --- */
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* --- Card Styling --- */
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow for professional feel */
+  margin-bottom: 20px;
+  overflow: hidden; /* Ensures borders/shadows look clean */
+}
+
+.cardContent {
+  padding: 30px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+/* --- Hostel Details Card --- */
+.hostelDetailsCard {
+  border: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+}
+
+.hostelDetailsCard h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.hostelDetailsCard p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 15px;
+}
+
+/* --- Form Group & Input Styling (General) --- */
+.formGroup {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+
+/* --- Payment Options (Radio Selection) --- */
+.paymentOptions {
+  margin: 30px 0;
+  text-align: left;
+}
+
+.paymentOptions h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.paymentOption {
+  margin-bottom: 10px;
+}
+
+.paymentOption label {
+  display: flex; /* Aligns items horizontally */
+  align-items: center;
+  cursor: pointer;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fefefe;
+  transition: background-color 0.2s, border-color 0.2s;
+  position: relative;
+}
+
+.paymentOption input[type="radio"] {
+  /* Hide default radio button but keep functional */
+  position: absolute;
+  opacity: 0;
+}
+
+/* Style for when a radio option is checked */
+.paymentOption input[type="radio"]:checked + label {
+  background-color: #eaf4ff; /* Light blue background for selection */
+  border-color: #007bff; /* Primary blue border */
+  box-shadow: 0 1px 3px rgba(0, 123, 255, 0.1);
+}
+
+.paymentOption input[type="radio"]:checked + label::after {
+    /* Custom checkmark indicator */
+    content: '✔';
+    position: absolute;
+    right: 15px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+
+/* --- Button Styling --- */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.1s;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.btnPrimary {
+  background-color: #28a745;
+  color: white;
+}
+
+.btnPrimary:hover {
+  background-color: #218838;
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+.btnPrimary:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Loading State --- */
+.loading {
+  padding: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+}
