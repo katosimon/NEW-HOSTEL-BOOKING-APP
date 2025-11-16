@@ -15,6 +15,7 @@ app.use('/api/bookings',bookingRoute)
 DbConnect();
 const PORT = process.env.port || 8080;
 app.listen(PORT, () => {
-  console.log(`example is on port ${PORT}`);
+  console.log(`We are live on port ${PORT} 😁`);
 });
+
 
